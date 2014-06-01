@@ -1,7 +1,18 @@
+var fs = require('fs');
+var file = __dirname + '/../config/config.json';
+var config = {};
+fs.readFile(file, 'utf8', function (err, data) {
+  if (err) {
+    console.log('Error: ' + err);
+    return;
+  }
+  config = JSON.parse(data);
+});
+
 var Spark = require("spark-io");
 var board = new Spark({
-  token: '',
-  deviceId: ''
+  token: config.token,
+  deviceId: config.deviceId
 });
 
 board.on("ready", function() {
